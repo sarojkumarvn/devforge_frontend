@@ -1,7 +1,10 @@
-const DEFAULT_API_BASE_URL =
-  typeof window === 'undefined' ? 'http://localhost:8080/api/v1' : `${window.location.protocol}//${window.location.hostname}:8080/api/v1`
+const LOCAL_API_BASE_URL = 'http://localhost:8080/api/v1'
+const PRODUCTION_API_BASE_URL = 'https://devforge.onrender.com/api/v1'
+const configuredApiBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim()
 
-export const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? DEFAULT_API_BASE_URL).replace(/\/$/, '')
+export const API_BASE_URL = (
+  configuredApiBaseUrl || (import.meta.env.DEV ? LOCAL_API_BASE_URL : PRODUCTION_API_BASE_URL)
+).replace(/\/$/, '')
 
 export type ApiEnvelope<T> = {
   message: string
