@@ -1,5 +1,5 @@
 const LOCAL_API_BASE_URL = 'http://localhost:8080/api/v1'
-const PRODUCTION_API_BASE_URL = 'https://devforge.onrender.com/api/v1'
+const PRODUCTION_API_BASE_URL = 'https://devforge-pw35.onrender.com/api/v1'
 const configuredApiBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim()
 
 export const API_BASE_URL = (
