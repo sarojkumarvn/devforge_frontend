@@ -20,28 +20,37 @@ export default function Testimonials() {
         <h2 className="mt-4 max-w-3xl text-balance font-heading text-[clamp(2.1rem,5vw,3.4rem)] font-medium leading-tight tracking-[-0.04em]">Built for developers who ship in public.</h2>
       </div>
       <div className="flex flex-col gap-4 overflow-hidden">
-        <MarqueeRow cards={testimonials.slice(0, 4)} direction="left" />
-        <MarqueeRow cards={testimonials.slice(2)} direction="right" />
+        <MarqueeRow cards={testimonials.slice(0, 4)} direction="right" />
+        <MarqueeRow cards={testimonials.slice(2)} direction="left" />
       </div>
     </section>
   )
 }
 
 function MarqueeRow({ cards, direction }: { cards: typeof testimonials; direction: 'left' | 'right' }) {
-  return <div className="overflow-hidden"><div className={cn('flex w-max gap-4', direction === 'left' ? 'animate-marquee-left' : 'animate-marquee-right')}>{[...cards, ...cards].map((item, index) => <TestimonialCard key={`${item.handle}-${index}`} testimonial={item} />)}</div></div>
+  return (
+    <div className="overflow-hidden py-1">
+      <div className={cn('flex w-max gap-4 will-change-transform motion-reduce:animate-none', direction === 'left' ? 'animate-marquee-left' : 'animate-marquee-right')}>
+        {[...cards, ...cards].map((item, index) => <TestimonialCard key={`${item.handle}-${index}`} testimonial={item} />)}
+      </div>
+    </div>
+  )
 }
 
 function TestimonialCard({ testimonial }: { testimonial: (typeof testimonials)[number] }) {
   const initials = testimonial.name.split(' ').map((part) => part[0]).join('')
   return (
-    <Card className="w-72 shrink-0">
+    <Card className="min-h-52 w-72 shrink-0 rounded-3xl border-border/70 bg-card/95 shadow-sm sm:w-80">
       <CardHeader>
         <div className="flex items-center gap-3">
-          <Avatar><AvatarFallback>{initials}</AvatarFallback></Avatar>
-          <div><CardTitle>{testimonial.name}</CardTitle><p className="text-xs text-muted-foreground">{testimonial.handle}</p></div>
+          <Avatar className="size-11"><AvatarFallback>{initials}</AvatarFallback></Avatar>
+          <div className="min-w-0">
+            <CardTitle className="truncate">{testimonial.name}</CardTitle>
+            <p className="truncate text-xs text-muted-foreground">{testimonial.handle}</p>
+          </div>
         </div>
       </CardHeader>
-      <CardContent className="line-clamp-3 text-pretty leading-6 text-muted-foreground">{testimonial.quote}</CardContent>
+      <CardContent className="text-pretty leading-6 text-muted-foreground">{testimonial.quote}</CardContent>
     </Card>
   )
 }
