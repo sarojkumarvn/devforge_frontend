@@ -38,15 +38,15 @@ export default function HomeFeed() {
 
   return (
     <>
-      <header className="sticky top-0 z-10 border-b bg-background/90 px-4 pt-3 backdrop-blur-md sm:px-5">
+      <header className="sticky top-0 z-10 border-b border-border/70 bg-background/90 px-4 pt-3 backdrop-blur-md sm:px-5">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="font-heading text-lg font-medium">Home</h1>
-            <p className="text-xs text-muted-foreground">Ideas and work from your developer network</p>
+            <h1 className="text-balance font-heading text-lg font-medium">Home</h1>
+            <p className="text-pretty text-xs text-muted-foreground">Ideas and work from your developer network</p>
           </div>
         </div>
         <Tabs value={filter} onValueChange={(value) => setFilter(value as Filter)}>
-          <TabsList variant="line" className="-mx-2 mt-2">
+        <TabsList variant="line" className="-mx-2 mt-2">
             {filters.map((item) => (
               <TabsTrigger key={item.id} value={item.id}>
                 <item.icon data-icon="inline-start" />
@@ -90,7 +90,7 @@ function SkeletonList() {
   return (
     <div aria-label="Loading posts" aria-busy="true">
       {Array.from({ length: 4 }).map((_, index) => (
-        <div key={index} className="flex gap-3 border-b px-5 py-5">
+        <div key={index} className="flex gap-3 border-b border-border/70 px-5 py-5">
           <Skeleton className="size-10 shrink-0 rounded-full" />
           <div className="flex flex-1 flex-col gap-3">
             <Skeleton className="h-3.5 w-1/3" />

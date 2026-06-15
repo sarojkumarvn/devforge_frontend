@@ -8,12 +8,12 @@ export function LoadingOverlay() {
 
   return (
     <div
-      className="fixed inset-0 z-[100] grid place-items-center bg-background/35 px-4 backdrop-blur-md"
+      className="fixed inset-0 z-[100] grid place-items-center bg-background/60 px-4 backdrop-blur-sm"
       role="status"
       aria-live="polite"
       aria-busy="true"
     >
-      <div className="flex items-center gap-3 rounded-full border bg-background/80 px-5 py-3 text-sm font-medium shadow-lg backdrop-blur-xl">
+      <div className="flex items-center gap-3 rounded-lg border border-border bg-popover px-4 py-3 text-sm font-medium text-popover-foreground shadow-md">
         <Spinner className="size-5" />
         <span>{message}</span>
       </div>

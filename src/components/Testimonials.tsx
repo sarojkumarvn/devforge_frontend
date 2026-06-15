@@ -17,7 +17,7 @@ export default function Testimonials() {
     <section className="overflow-hidden px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
       <div className="mx-auto mb-10 max-w-screen-xl">
         <Badge variant="secondary">Community signals</Badge>
-        <h2 className="mt-4 max-w-3xl font-heading text-[clamp(2.1rem,5vw,3.4rem)] font-medium leading-tight tracking-[-0.04em]">Built for developers who ship in public.</h2>
+        <h2 className="mt-4 max-w-3xl text-balance font-heading text-[clamp(2.1rem,5vw,3.4rem)] font-medium leading-tight tracking-[-0.04em]">Built for developers who ship in public.</h2>
       </div>
       <div className="flex flex-col gap-4 overflow-hidden">
         <MarqueeRow cards={testimonials.slice(0, 4)} direction="left" />
@@ -41,7 +41,7 @@ function TestimonialCard({ testimonial }: { testimonial: (typeof testimonials)[n
           <div><CardTitle>{testimonial.name}</CardTitle><p className="text-xs text-muted-foreground">{testimonial.handle}</p></div>
         </div>
       </CardHeader>
-      <CardContent className="line-clamp-3 leading-6 text-muted-foreground">{testimonial.quote}</CardContent>
+      <CardContent className="line-clamp-3 text-pretty leading-6 text-muted-foreground">{testimonial.quote}</CardContent>
     </Card>
   )
 }

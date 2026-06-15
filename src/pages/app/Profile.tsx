@@ -55,7 +55,7 @@ export default function Profile() {
 
   return (
     <>
-      <header className="border-b">
+      <header className="border-b border-border/70">
         <CoverImage
           className="h-40"
           src={profile.data?.coverPictureUrl}
@@ -71,15 +71,15 @@ export default function Profile() {
               </Button>
             )}
           </div>
-          <h1 className="mt-4 font-heading text-2xl font-medium">{profile.data?.userName}</h1>
-          <p className="mt-2 leading-6 text-muted-foreground">{profile.data?.bio ?? 'No bio yet.'}</p>
+          <h1 className="mt-4 text-balance font-heading text-2xl font-medium">{profile.data?.userName}</h1>
+          <p className="mt-2 text-pretty leading-6 text-muted-foreground">{profile.data?.bio ?? 'No bio yet.'}</p>
           <div className="mt-3 flex flex-wrap gap-4 text-sm text-muted-foreground">
             {profile.data?.location && <span className="flex items-center gap-1"><MapPin /> {profile.data.location}</span>}
             <span className="flex items-center gap-1"><CalendarDays /> DevForge member</span>
           </div>
           <div className="mt-3 flex gap-4 text-sm">
-            <span><b>{profile.data?.followingCount ?? 0}</b> Following</span>
-            <span><b>{profile.data?.followerCount ?? 0}</b> Followers</span>
+            <span><b className="tabular-nums">{profile.data?.followingCount ?? 0}</b> Following</span>
+            <span><b className="tabular-nums">{profile.data?.followerCount ?? 0}</b> Followers</span>
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
             {(profile.data?.skills ?? []).map((skill) => <Badge key={skill} variant="secondary">{skill}</Badge>)}
@@ -87,7 +87,7 @@ export default function Profile() {
         </div>
         <Tabs value={tab} onValueChange={setTab}>
           <TabsList variant="line" className="w-full justify-start px-4">
-            {tabs.map((item) => <TabsTrigger key={item.value} value={item.value}>{item.label} {item.count}</TabsTrigger>)}
+            {tabs.map((item) => <TabsTrigger key={item.value} value={item.value}>{item.label} <span className="tabular-nums">{item.count}</span></TabsTrigger>)}
           </TabsList>
         </Tabs>
       </header>

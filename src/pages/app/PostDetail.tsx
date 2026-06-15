@@ -35,7 +35,7 @@ export default function PostDetail() {
     <>
       <PageHeader title="Post" />
       {post.data && <PostCard post={post.data} onChanged={post.reload} />}
-      <form className="border-b p-4" onSubmit={add}>
+      <form className="border-b border-border/70 p-4" onSubmit={add}>
         <Field>
           <FieldLabel htmlFor="comment">Join the discussion</FieldLabel>
           <Textarea id="comment" value={content} onChange={(event) => setContent(event.target.value)} placeholder="Write a comment..." />
@@ -49,9 +49,9 @@ export default function PostDetail() {
           <Card key={comment.id} size="sm">
             <CardHeader>
               <CardTitle>{comment.userName}</CardTitle>
-              <CardDescription>{new Date(comment.createdAt).toLocaleString()}</CardDescription>
+              <CardDescription className="tabular-nums">{new Date(comment.createdAt).toLocaleString()}</CardDescription>
             </CardHeader>
-            <CardContent className="whitespace-pre-wrap leading-6">{comment.content}</CardContent>
+            <CardContent className="whitespace-pre-wrap text-pretty leading-6">{comment.content}</CardContent>
           </Card>
         ))}
       </div>

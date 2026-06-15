@@ -19,8 +19,8 @@ export default function Features() {
       <div className="mx-auto max-w-screen-xl">
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <Badge>Platform</Badge>
-          <h2 className="mt-5 font-heading text-[clamp(2.1rem,5vw,3.6rem)] font-medium leading-tight tracking-[-0.04em]">Everything developers need to be discovered.</h2>
-          <p className="mt-4 text-lg leading-8 text-muted-foreground">Profiles, publishing, feeds, and communities composed from one consistent product system.</p>
+          <h2 className="mt-5 text-balance font-heading text-[clamp(2.1rem,5vw,3.6rem)] font-medium leading-tight tracking-[-0.04em]">Everything developers need to be discovered.</h2>
+          <p className="mt-4 text-pretty text-lg leading-8 text-muted-foreground">Profiles, publishing, feeds, and communities composed from one consistent product system.</p>
         </div>
         <div className="flex flex-col gap-16">
           {features.map((feature) => (
@@ -28,8 +28,8 @@ export default function Features() {
               <div className="w-full md:w-1/2"><FeatureVisual feature={feature} /></div>
               <div className="w-full md:w-1/2">
                 <Badge variant="secondary">{feature.badge}</Badge>
-                <h3 className="mt-4 font-heading text-[clamp(1.8rem,4vw,2.8rem)] font-medium leading-tight tracking-[-0.04em]">{feature.title}</h3>
-                <p className="mt-4 max-w-xl text-lg leading-8 text-muted-foreground">{feature.description}</p>
+                <h3 className="mt-4 text-balance font-heading text-[clamp(1.8rem,4vw,2.8rem)] font-medium leading-tight tracking-[-0.04em]">{feature.title}</h3>
+                <p className="mt-4 max-w-xl text-pretty text-lg leading-8 text-muted-foreground">{feature.description}</p>
               </div>
             </motion.article>
           ))}
@@ -45,12 +45,12 @@ function FeatureVisual({ feature }: { feature: (typeof features)[number] }) {
     <Card>
       <CardHeader>
         <div className="flex items-center gap-3">
-          <span className="grid size-12 place-items-center rounded-2xl bg-muted text-primary"><Icon /></span>
+          <span className="grid size-12 place-items-center rounded-xl bg-muted text-primary"><Icon /></span>
           <div><CardTitle>{feature.title}</CardTitle><CardDescription>{feature.badge}</CardDescription></div>
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
-        {feature.rows.map((row) => <div key={row} className="rounded-2xl bg-muted p-4 text-sm font-medium">{row}</div>)}
+        {feature.rows.map((row) => <div key={row} className="rounded-xl bg-muted p-4 text-pretty text-sm font-medium">{row}</div>)}
       </CardContent>
       <CardFooter className="flex justify-between gap-3">
         <div className="flex gap-2">{feature.metrics.map((metric) => <Badge key={metric} variant="outline">{metric}</Badge>)}</div>

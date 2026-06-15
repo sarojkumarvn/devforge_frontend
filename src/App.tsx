@@ -10,6 +10,7 @@ import { AuthProvider, useAuth } from './context/AuthContext'
 import { LoadingTransitionProvider, useLoadingTransition } from './context/LoadingTransitionContext'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
+import ServerUnavailable from './pages/ServerUnavailable'
 import Signup from './pages/Signup'
 import Bookmarks from './pages/app/Bookmarks'
 import Communities from './pages/app/Communities'
@@ -39,6 +40,7 @@ export default function App() {
                   <Route path="/" element={<MarketingShell><Landing /></MarketingShell>} />
                   <Route path="/signup" element={<SansSerifShell><MarketingShell><Signup /></MarketingShell></SansSerifShell>} />
                   <Route path="/login" element={<SansSerifShell><MarketingShell><Login /></MarketingShell></SansSerifShell>} />
+                  <Route path="/server-unavailable" element={<SansSerifShell><ServerUnavailable /></SansSerifShell>} />
                   <Route path="/app" element={<Protected><SansSerifShell><AppShell><HomeFeed /></AppShell></SansSerifShell></Protected>} />
                   <Route path="/app/explore" element={<Protected><SansSerifShell><AppShell><Explore /></AppShell></SansSerifShell></Protected>} />
                   <Route path="/app/communities" element={<Protected><SansSerifShell><AppShell><Communities /></AppShell></SansSerifShell></Protected>} />

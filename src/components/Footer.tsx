@@ -20,7 +20,7 @@ export default function Footer() {
   const scrollToSection = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
   return (
-    <footer className="border-t px-4 py-12 sm:px-6 md:py-16 lg:px-8">
+    <footer className="border-t border-border/70 bg-background px-4 py-12 sm:px-6 md:py-16 lg:px-8">
       <div className="mx-auto grid max-w-screen-xl gap-10 text-center md:grid-cols-2 md:text-left lg:grid-cols-3">
         <div>
           <Link to="/" className="inline-flex min-h-11 items-center font-heading text-2xl font-medium">DevForge</Link>

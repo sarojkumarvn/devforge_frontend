@@ -53,13 +53,13 @@ export default function Settings() {
         <Card>
           <CardHeader>
             <CardTitle>Appearance</CardTitle>
-            <CardDescription>Choose the appearance used across DevForge.</CardDescription>
+            <CardDescription className="text-pretty">Choose the appearance used across DevForge.</CardDescription>
           </CardHeader>
           <CardContent>
             <Field orientation="horizontal">
               <FieldContent>
                 <FieldTitle>{dark ? 'Dark mode' : 'Light mode'}</FieldTitle>
-                <p className="text-sm text-muted-foreground">Switch between light and dark semantic themes.</p>
+                <p className="text-pretty text-sm text-muted-foreground">Switch between light and dark semantic themes.</p>
               </FieldContent>
               {dark ? <Moon /> : <Sun />}
               <Switch checked={dark} onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')} aria-label="Toggle dark mode" />
@@ -69,7 +69,7 @@ export default function Settings() {
         <Card>
           <CardHeader>
             <CardTitle>Profile</CardTitle>
-            <CardDescription>Update the details shown on your public profile.</CardDescription>
+            <CardDescription className="text-pretty">Update the details shown on your public profile.</CardDescription>
           </CardHeader>
           <CardContent>
             <FieldGroup>

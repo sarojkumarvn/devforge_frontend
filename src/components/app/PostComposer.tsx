@@ -60,7 +60,7 @@ export function PostComposer({ onCreated, communityId }: { onCreated?: () => voi
   }
 
   return (
-    <form className="border-b p-4 sm:p-5" onSubmit={submit}>
+    <form className="border-b border-border/70 bg-card p-4 sm:p-5" onSubmit={submit}>
       <div className="flex gap-3">
         <AvatarName user={user} />
         <FieldGroup className="min-w-0 flex-1 gap-3">
@@ -113,7 +113,7 @@ export function PostComposer({ onCreated, communityId }: { onCreated?: () => voi
                 </SelectGroup>
               </SelectContent>
             </Select>
-            <span className="ml-auto text-xs text-muted-foreground">{description.length}/1290</span>
+            <span className="ml-auto text-xs text-muted-foreground tabular-nums">{description.length}/1290</span>
             <Button disabled={loading || !title.trim() || !description.trim()} type="submit">
               {loading ? <Spinner data-icon="inline-start" /> : <SendHorizonal data-icon="inline-start" />}
               Post

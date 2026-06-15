@@ -7,9 +7,9 @@ export default function ComingSoon() {
       <Card className="w-full max-w-xl">
         <CardHeader>
           <Badge className="mx-auto" variant="secondary">DevForge</Badge>
-          <CardTitle className="text-[clamp(2.6rem,10vw,5rem)]">Coming soon</CardTitle>
+          <CardTitle className="text-balance text-[clamp(2.25rem,8vw,4.5rem)]">Coming soon</CardTitle>
         </CardHeader>
-        <CardContent className="text-lg text-muted-foreground">We&apos;re working on it.</CardContent>
+        <CardContent className="text-pretty text-base text-muted-foreground">We&apos;re working on it.</CardContent>
       </Card>
     </main>
   )

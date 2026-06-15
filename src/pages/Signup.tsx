@@ -33,7 +33,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { useAuth } from '@/context/AuthContext'
 import { useLoadingTransition } from '@/context/LoadingTransitionContext'
-import { ApiError, signup, UserInterest } from '@/lib/authApi'
+import { ApiError, ServerUnavailableError, signup, UserInterest } from '@/lib/authApi'
 
 const interestOptions: { value: UserInterest; label: string }[] = [
   { value: 'FRONTEND', label: 'Frontend' }, { value: 'BACKEND', label: 'Backend' },
@@ -132,9 +132,16 @@ export default function Signup() {
       navigate('/app', { replace: true })
     } catch (err) {
       await finish()
+      if (err instanceof ServerUnavailableError) {
+        navigate('/server-unavailable', {
+          replace: true,
+          state: { returnTo: '/signup' },
+        })
+        return
+      }
       const message = err instanceof ApiError
         ? err.details?.join(', ') || err.message
-        : 'Unable to reach the backend. Confirm it is running and try again.'
+        : 'Unable to create your account right now. Please try again.'
       showError(message, 'Signup failed')
     } finally {
       setLoading(false)
@@ -147,7 +154,7 @@ export default function Signup() {
         <aside className="flex flex-col gap-6 lg:sticky lg:top-28">
           <div>
             <Badge variant="secondary">DevForge profile</Badge>
-            <h1 className="mt-4 max-w-lg font-heading text-4xl font-medium leading-tight sm:text-5xl">Build the profile your projects attach to.</h1>
+            <h1 className="mt-4 max-w-lg text-balance font-heading text-4xl font-medium leading-tight sm:text-5xl">Build the profile your projects attach to.</h1>
           </div>
           <Card>
             <CoverImage className="h-28" src={coverPictureUrl.trim() || undefined} alt={`${userName.trim() || 'Developer'} cover`} />
@@ -164,7 +171,7 @@ export default function Signup() {
               </div>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
-              <p className="line-clamp-4 text-sm leading-6 text-muted-foreground">{bio.trim() || 'Your bio preview will appear here as you move through signup.'}</p>
+              <p className="line-clamp-4 text-pretty text-sm leading-6 text-muted-foreground">{bio.trim() || 'Your bio preview will appear here as you move through signup.'}</p>
               <div className="flex flex-wrap gap-2">
                 {(skills.length ? skills.slice(0, 6) : ['Java', 'React', 'PostgreSQL']).map((skill) => <Badge key={skill} variant="outline">{skill}</Badge>)}
               </div>
@@ -176,7 +183,7 @@ export default function Signup() {
               const complete = index < activeStep || (index === activeStep && stepIsValid(index))
               return (
                 <div key={step.title} className="flex items-center gap-3">
-                  <span className="grid size-9 place-items-center rounded-full bg-muted text-muted-foreground">
+                  <span className="grid size-9 place-items-center rounded-lg bg-muted text-muted-foreground">
                     {complete ? <Check /> : <Icon />}
                   </span>
                   <span className="text-sm font-medium">{step.title}</span>
@@ -190,7 +197,7 @@ export default function Signup() {
           <CardHeader>
             <Badge variant="outline">Step {activeStep + 1} of {steps.length}</Badge>
             <CardTitle className="text-3xl">{steps[activeStep].title}</CardTitle>
-            <CardDescription>Already registered? <AuthLink className="text-primary hover:underline" to="/login">Login instead</AuthLink>.</CardDescription>
+            <CardDescription className="text-pretty">Already registered? <AuthLink className="text-primary hover:underline" to="/login">Login instead</AuthLink>.</CardDescription>
           </CardHeader>
           <CardContent>
             <form
@@ -234,7 +241,7 @@ export default function Signup() {
                   <Field>
                     <FieldLabel htmlFor="signup-bio">Bio</FieldLabel>
                     <Textarea id="signup-bio" className="min-h-52" maxLength={500} value={bio} onChange={(event) => setBio(event.target.value)} />
-                    <FieldDescription className="text-right">{bio.length}/500</FieldDescription>
+                    <FieldDescription className="text-right tabular-nums">{bio.length}/500</FieldDescription>
                   </Field>
                 )}
                 {activeStep === 3 && (

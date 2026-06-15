@@ -12,7 +12,7 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/in
 import { Spinner } from '@/components/ui/spinner'
 import { useAuth } from '@/context/AuthContext'
 import { useLoadingTransition } from '@/context/LoadingTransitionContext'
-import { ApiError, login } from '@/lib/authApi'
+import { ApiError, login, ServerUnavailableError } from '@/lib/authApi'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -43,9 +43,16 @@ export default function Login() {
       navigate('/app', { replace: true })
     } catch (err) {
       await finish()
+      if (err instanceof ServerUnavailableError) {
+        navigate('/server-unavailable', {
+          replace: true,
+          state: { returnTo: '/login' },
+        })
+        return
+      }
       const message = err instanceof ApiError
         ? err.details?.join(', ') || err.message
-        : 'Unable to login right now. Check the backend connection and try again.'
+        : 'Unable to login right now. Please try again.'
       setError(message)
       toast.error('Login failed', {
         description: message,
@@ -62,7 +69,7 @@ export default function Login() {
         <aside className="flex flex-col gap-6">
           <div>
             <Badge variant="secondary">DevForge account</Badge>
-            <h1 className="mt-4 max-w-md font-heading text-4xl font-medium leading-tight sm:text-5xl">Return to your projects, communities, and profile.</h1>
+            <h1 className="mt-4 max-w-md text-balance font-heading text-4xl font-medium leading-tight sm:text-5xl">Return to your projects, communities, and profile.</h1>
           </div>
           <div className="grid gap-3 sm:grid-cols-3 lg:max-w-md lg:grid-cols-1">
             {[
@@ -71,7 +78,7 @@ export default function Login() {
               { icon: ShieldCheck, label: 'Secure session' },
             ].map((item) => (
               <div key={item.label} className="flex items-center gap-3">
-                <span className="grid size-10 place-items-center rounded-xl bg-muted text-primary"><item.icon /></span>
+                <span className="grid size-10 place-items-center rounded-lg bg-muted text-primary"><item.icon /></span>
                 <span className="text-sm font-medium">{item.label}</span>
               </div>
             ))}
@@ -82,7 +89,7 @@ export default function Login() {
           <CardHeader>
             <Badge className="mb-2" variant="outline">Login</Badge>
             <CardTitle className="text-3xl">Welcome back</CardTitle>
-            <CardDescription>Access your DevForge account or <AuthLink className="text-primary hover:underline" to="/signup">create a new one</AuthLink>.</CardDescription>
+            <CardDescription className="text-pretty">Access your DevForge account or <AuthLink className="text-primary hover:underline" to="/signup">create a new one</AuthLink>.</CardDescription>
           </CardHeader>
           <CardContent>
             <form

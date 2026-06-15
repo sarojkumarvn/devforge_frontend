@@ -68,13 +68,13 @@ export default function CommunityDetail() {
 
   return (
     <>
-      <header className="border-b">
+      <header className="border-b border-border/70">
         <CoverImage className="h-36" src={community.data?.bannerUrl} alt={`${community.data?.name ?? 'Community'} banner`} />
         <div className="p-4">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <h1 className="font-heading text-2xl font-medium">{community.data?.name ?? 'Community'}</h1>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">{community.data?.description}</p>
+              <h1 className="text-balance font-heading text-2xl font-medium">{community.data?.name ?? 'Community'}</h1>
+              <p className="mt-2 text-pretty text-sm leading-6 text-muted-foreground">{community.data?.description}</p>
             </div>
             {!community.data?.canManage && (
               <Button onClick={join} disabled={joining || joined}>

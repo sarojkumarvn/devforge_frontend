@@ -42,7 +42,7 @@ export default function Communities() {
   return (
     <>
       <PageHeader title="Communities" description="Build and join focused developer groups" />
-      <form className="border-b p-4" onSubmit={create}>
+      <form className="border-b border-border/70 p-4" onSubmit={create}>
         <FieldGroup className="grid gap-3 sm:grid-cols-2">
           <Field>
             <FieldLabel htmlFor="community-name">Community name</FieldLabel>
@@ -65,12 +65,12 @@ export default function Communities() {
             <CoverImage className="h-28" src={community.bannerUrl} alt={`${community.name} banner`} />
             <CardHeader>
               <div className="flex items-start gap-4">
-                <div className="grid size-14 shrink-0 place-items-center rounded-2xl bg-muted text-primary">
-                  {community.logoUrl ? <img className="size-full rounded-2xl object-cover" src={community.logoUrl} alt="" /> : <Users />}
+                <div className="grid size-14 shrink-0 place-items-center rounded-xl bg-muted text-primary">
+                  {community.logoUrl ? <img className="size-full rounded-xl object-cover" src={community.logoUrl} alt="" /> : <Users />}
                 </div>
                 <div>
                   <CardTitle><Link to={`/app/communities/${community.id}`}>{community.name}</Link></CardTitle>
-                  <CardDescription>{community.description}</CardDescription>
+                  <CardDescription className="text-pretty">{community.description}</CardDescription>
                 </div>
               </div>
             </CardHeader>

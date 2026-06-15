@@ -31,7 +31,7 @@ export default function Explore() {
   return (
     <>
       <PageHeader title="Explore" description="Search posts, people, and communities" />
-      <form className="border-b p-4" onSubmit={search}>
+      <form className="border-b border-border/70 p-4" onSubmit={search}>
         <Field>
           <FieldLabel className="sr-only" htmlFor="explore-search">Search DevForge</FieldLabel>
           <InputGroup>
@@ -40,8 +40,8 @@ export default function Explore() {
           </InputGroup>
         </Field>
       </form>
-      <section className="border-b p-4">
-        <h2 className="mb-3 font-heading text-base font-medium">People</h2>
+      <section className="border-b border-border/70 p-4">
+        <h2 className="mb-3 text-balance font-heading text-base font-medium">People</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {(users.data?.content ?? []).filter((user) => user.userName.toLowerCase().includes(submitted.toLowerCase())).slice(0, 6).map((user) => (
             <Card key={user.id} size="sm">
@@ -55,21 +55,21 @@ export default function Explore() {
           ))}
         </div>
       </section>
-      <section className="border-b p-4">
-        <h2 className="mb-3 font-heading text-base font-medium">Communities</h2>
+      <section className="border-b border-border/70 p-4">
+        <h2 className="mb-3 text-balance font-heading text-base font-medium">Communities</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {(communities.data?.content ?? []).filter((community) => `${community.name} ${community.description}`.toLowerCase().includes(submitted.toLowerCase())).slice(0, 6).map((community) => (
             <Card key={community.id} size="sm">
               <CoverImage className="h-20" src={community.bannerUrl} alt={`${community.name} banner`} />
               <CardHeader>
                 <CardTitle><Link to={`/app/communities/${community.id}`}>{community.name}</Link></CardTitle>
-                <CardDescription className="line-clamp-2">{community.description}</CardDescription>
+                <CardDescription className="line-clamp-2 text-pretty">{community.description}</CardDescription>
               </CardHeader>
             </Card>
           ))}
         </div>
       </section>
-      <h2 className="p-4 font-heading text-base font-medium">Posts</h2>
+      <h2 className="p-4 text-balance font-heading text-base font-medium">Posts</h2>
       {projects.loading && <div className="flex flex-col gap-3 p-4"><Skeleton className="h-24" /><Skeleton className="h-24" /></div>}
       {(projects.data?.content ?? []).map((post) => <PostCard key={post.id} post={post} onChanged={projects.reload} />)}
     </>

@@ -13,7 +13,7 @@ import {
   Users,
   UserRound,
 } from 'lucide-react'
-import { FormEvent, KeyboardEvent, PointerEvent as ReactPointerEvent, ReactNode, useEffect, useState } from 'react'
+import { FormEvent, KeyboardEvent, PointerEvent as ReactPointerEvent, ReactNode, useEffect, useState, type CSSProperties } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
 import { Button } from '@/components/ui/button'
@@ -127,13 +127,13 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <SidebarProvider
-      className="h-svh min-h-0 overflow-hidden bg-muted/50 xl:[--sidebar-width:var(--desktop-left-width)]"
+      className="h-svh min-h-0 overflow-hidden bg-background xl:[--sidebar-width:var(--desktop-left-width)]"
       style={{
         '--sidebar-width': '13rem',
         '--sidebar-width-icon': '4rem',
         '--desktop-left-width': `${layout.left}vw`,
         '--discovery-width': `${layout.right}vw`,
-      } as React.CSSProperties}
+      } as CSSProperties}
     >
       <Sidebar collapsible="icon">
         <SidebarHeader className="p-3">
@@ -195,13 +195,13 @@ export function AppShell({ children }: { children: ReactNode }) {
       </Sidebar>
 
       <SidebarInset className="h-svh min-h-0 overflow-hidden">
-        <header className="flex h-16 shrink-0 items-center gap-3 border-b bg-background/95 px-3 backdrop-blur sm:px-5">
+        <header className="flex h-16 shrink-0 items-center gap-3 border-b border-border/70 bg-background/95 px-3 backdrop-blur sm:px-5">
           <SidebarTrigger className="hidden md:inline-flex" />
           <MobileSidebarTrigger />
 
           <div className="min-w-0">
-            <p className="truncate font-heading text-base font-semibold sm:text-lg">{title}</p>
-            <p className="hidden text-xs text-muted-foreground sm:block">Build, share, and discover developer work</p>
+            <p className="truncate text-balance font-heading text-base font-semibold sm:text-lg">{title}</p>
+            <p className="hidden text-pretty text-xs text-muted-foreground sm:block">Build, share, and discover developer work</p>
           </div>
 
           <form className="ml-auto hidden w-full max-w-xs lg:block" onSubmit={submitSearch}>
@@ -263,7 +263,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             onChange={(right) => setLayout((current) => normalizeLayout({ ...current, right }))}
             direction="right"
           />
-          <aside className="hidden min-h-0 overflow-y-auto border-l bg-muted/20 p-5 xl:block" aria-label="Discover DevForge">
+          <aside className="hidden min-h-0 overflow-y-auto border-l border-border/70 bg-muted/20 p-5 xl:block" aria-label="Discover DevForge">
             <DiscoveryRail />
           </aside>
         </div>

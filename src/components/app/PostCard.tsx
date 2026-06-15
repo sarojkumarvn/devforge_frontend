@@ -131,7 +131,7 @@ export function PostCard({ post, onChanged }: { post: PostLike; onChanged?: () =
   }
 
   return (
-    <article className="group border-b px-4 py-5 transition-colors hover:bg-muted/40 sm:px-5">
+    <article className="group border-b border-border/70 px-4 py-5 transition-colors hover:bg-muted/30 sm:px-5">
       <div className="flex gap-3">
         <div className="relative flex shrink-0 flex-col items-center">
           <Link to={`/app/profile/${item.userId}`} aria-label={`View ${item.userName}'s profile`}>
@@ -157,8 +157,8 @@ export function PostCard({ post, onChanged }: { post: PostLike; onChanged?: () =
           </div>
 
           <Link to={`/app/posts/${item.id}`} className="block">
-            <h2 className="mt-1.5 font-heading text-[1.05rem] font-medium leading-6">{item.title}</h2>
-            <p className="mt-1.5 whitespace-pre-wrap text-[0.94rem] leading-6 text-muted-foreground">{item.description}</p>
+            <h2 className="mt-1.5 text-balance font-heading text-[1.05rem] font-medium leading-6">{item.title}</h2>
+            <p className="mt-1.5 whitespace-pre-wrap text-pretty text-sm leading-6 text-muted-foreground">{item.description}</p>
           </Link>
 
           {item.techStacks.length > 0 && (
@@ -172,7 +172,7 @@ export function PostCard({ post, onChanged }: { post: PostLike; onChanged?: () =
           )}
 
           {item.photos[0] && (
-            <Link to={`/app/posts/${item.id}`} className="mt-3 block overflow-hidden rounded-2xl border bg-muted">
+            <Link to={`/app/posts/${item.id}`} className="mt-3 block overflow-hidden rounded-xl border border-border/70 bg-muted">
               <img className="max-h-[440px] w-full object-cover" src={item.photos[0]} alt={`Attached to ${item.title}`} />
             </Link>
           )}
@@ -187,14 +187,14 @@ export function PostCard({ post, onChanged }: { post: PostLike; onChanged?: () =
           <div className="mt-4 flex items-center justify-between text-muted-foreground" aria-label="Post actions">
             <Button variant="ghost" size="sm" asChild>
               <Link to={`/app/posts/${item.id}`} aria-label={`${item.commentCount} comments`}>
-                <MessageCircle data-icon="inline-start" /> {item.commentCount}
+                <MessageCircle data-icon="inline-start" /> <span className="tabular-nums">{item.commentCount}</span>
               </Link>
             </Button>
             <Button className={cn(liked && 'text-destructive')} variant="ghost" size="sm" type="button" onClick={toggleLike} aria-label={liked ? 'Unlike post' : 'Like post'} aria-pressed={liked} disabled={liking}>
-              <Heart data-icon="inline-start" fill={liked ? 'currentColor' : 'none'} /> {likeCount}
+              <Heart data-icon="inline-start" fill={liked ? 'currentColor' : 'none'} /> <span className="tabular-nums">{likeCount}</span>
             </Button>
             <Button className={cn(bookmarked && 'text-primary')} variant="ghost" size="sm" type="button" onClick={toggleBookmark} aria-label={bookmarked ? 'Remove bookmark' : 'Bookmark post'} aria-pressed={bookmarked} disabled={bookmarking}>
-              <Bookmark data-icon="inline-start" fill={bookmarked ? 'currentColor' : 'none'} /> {bookmarkCount || ''}
+              <Bookmark data-icon="inline-start" fill={bookmarked ? 'currentColor' : 'none'} /> <span className="tabular-nums">{bookmarkCount || ''}</span>
             </Button>
             <Button variant="ghost" size="icon-sm" type="button" onClick={share} aria-label="Share post">
               <Link2 />

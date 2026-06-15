@@ -42,7 +42,7 @@ export function DiscoveryRail() {
 
   return (
     <div className="flex flex-col gap-4">
-      <Button variant="outline" className="h-10 w-full justify-start rounded-xl text-muted-foreground" asChild>
+      <Button variant="outline" className="h-10 w-full justify-start text-muted-foreground" asChild>
         <Link to="/app/explore" aria-label="Search DevForge">
           <Search data-icon="inline-start" />
           Search DevForge
@@ -62,9 +62,9 @@ export function DiscoveryRail() {
           <div key={post.id}>
             {index > 0 && <Separator />}
             <Link to={`/app/posts/${post.id}`} className="group block py-3">
-              <p className="text-xs text-muted-foreground">#{index + 1} in DevForge</p>
-              <p className="line-clamp-2 text-sm font-medium group-hover:text-primary">{post.title}</p>
-              <p className="mt-1 text-xs text-muted-foreground">{post.likeCount ?? 0} likes · {post.commentCount ?? 0} replies</p>
+              <p className="text-xs text-muted-foreground tabular-nums">#{index + 1} in DevForge</p>
+              <p className="line-clamp-2 text-pretty text-sm font-medium group-hover:text-primary">{post.title}</p>
+              <p className="mt-1 text-xs text-muted-foreground tabular-nums">{post.likeCount ?? 0} likes · {post.commentCount ?? 0} replies</p>
             </Link>
           </div>
         ))}
@@ -110,7 +110,7 @@ export function DiscoveryRail() {
                 <CoverImage className="size-10 shrink-0 rounded-xl" src={community.bannerUrl} alt={`${community.name} banner`} />
                 <div className="min-w-0">
                   <p className="truncate text-sm font-medium group-hover:text-primary">{community.name}</p>
-                  <p className="line-clamp-1 text-xs text-muted-foreground">{community.description || 'DevForge community'}</p>
+                  <p className="line-clamp-1 text-pretty text-xs text-muted-foreground">{community.description || 'DevForge community'}</p>
                 </div>
                 <ArrowUpRight className="shrink-0 text-muted-foreground" />
               </Link>
@@ -131,8 +131,8 @@ export function DiscoveryRail() {
 
 function RailSection({ title, icon: Icon, children }: { title: string; icon: typeof Search; children: React.ReactNode }) {
   return (
-    <Card size="sm" className="rounded-2xl shadow-sm">
-      <CardHeader className="border-b">
+    <Card size="sm" className="rounded-xl shadow-sm">
+      <CardHeader className="border-b border-border/70">
         <CardTitle className="flex items-center gap-2"><Icon /> {title}</CardTitle>
       </CardHeader>
       <CardContent>{children}</CardContent>

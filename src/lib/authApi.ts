@@ -44,16 +44,44 @@ export type AuthSession = {
   userName?: string
 }
 
+export class ServerUnavailableError extends Error {
+  constructor(message = 'The DevForge server is currently unavailable.') {
+    super(message)
+    this.name = 'ServerUnavailableError'
+  }
+}
+
 export { ApiError }
 
+const SERVER_UNAVAILABLE_STATUSES = new Set([502, 503, 504])
+const REQUEST_TIMEOUT_MS = 10_000
+
 async function requestAuth<TResponse, TPayload>(path: string, payload: TPayload): Promise<TResponse> {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  })
+  const controller = new AbortController()
+  const timeout = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
+  let response: Response
+
+  try {
+    response = await fetch(`${API_BASE_URL}${path}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    })
+  } catch (error) {
+    if (error instanceof TypeError || (error instanceof DOMException && error.name === 'AbortError')) {
+      throw new ServerUnavailableError()
+    }
+    throw error
+  } finally {
+    window.clearTimeout(timeout)
+  }
+
+  if (SERVER_UNAVAILABLE_STATUSES.has(response.status)) {
+    throw new ServerUnavailableError()
+  }
 
   let body: ApiResponse<TResponse> | null = null
 
@@ -77,6 +105,23 @@ export function login(payload: LoginPayload) {
 
 export function signup(payload: SignupPayload) {
   return requestAuth<SignupResult, SignupPayload>('/auth/signup', payload)
+}
+
+export async function checkServerAvailability() {
+  const controller = new AbortController()
+  const timeout = window.setTimeout(() => controller.abort(), 5_000)
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/actuator/health/liveness`, {
+      cache: 'no-store',
+      signal: controller.signal,
+    })
+    return response.ok
+  } catch {
+    return false
+  } finally {
+    window.clearTimeout(timeout)
+  }
 }
 
 export function saveAuthSession(session: AuthSession) {

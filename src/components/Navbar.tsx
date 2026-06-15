@@ -16,9 +16,9 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-4 z-50 px-3">
-      <nav className="mx-auto flex min-h-14 max-w-3xl items-center rounded-full border bg-background/80 px-3 shadow-md backdrop-blur-xl">
+      <nav className="mx-auto flex min-h-14 max-w-4xl items-center rounded-xl border border-border/70 bg-background/90 px-3 shadow-sm backdrop-blur">
         <Link aria-label="DevForge home" className="flex items-center gap-2 font-heading font-semibold" to="/">
-          <span className="grid size-9 place-items-center rounded-full bg-primary text-primary-foreground"><Sparkles /></span>
+          <span className="grid size-9 place-items-center rounded-lg bg-primary text-primary-foreground"><Sparkles /></span>
           DevForge
         </Link>
         <div className="ml-auto hidden items-center gap-1 md:flex">
@@ -41,7 +41,7 @@ export default function Navbar() {
               <SheetDescription>Explore the platform or access your account.</SheetDescription>
             </SheetHeader>
             <div className="flex flex-col gap-2 px-6">
-              <div className="flex items-center justify-between rounded-2xl bg-muted px-3 py-2">
+              <div className="flex items-center justify-between rounded-lg border border-border bg-muted/50 px-3 py-2">
                 <span className="text-sm font-medium">Theme</span>
                 <ThemeSwitcher />
               </div>
